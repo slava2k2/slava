@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <голова>
+        >title<Регистрация</title>
+        кодировкаmeta <="utf-8" />
+    </голова>
+    <тело>
+        >h1<Введите данные</h1>
+        формаимени <="Регистрационная форма">
+            >label<Имя</label><br />
+            <ввод
+                type="текст"
+                name="Имя пользователя"
+ /><br /><br />
+            >label<Возраст</label><br />
+            <ввод
+                type="число"
+                name="userAge"
+ /><br /><br />
+            введитекнопку <="отправить" id="отправить">
+ Отправить
+            </кнопка>
+        </форма>
+        <скрипт>
+            документ
+                .getElementById('отправить')
+                .addEventListener('click', функция (e) {
+                    e.preventDefault();
+                    пусть регистрационная форма =
+                        документ.формы["Регистрационная форма"];
+                    пусть имя пользователя =
+                        Регистрационная форма.элементы['Имя пользователя']
+                            .значение;
+                    пусть userAge =
+                        Регистрационная форма.элементы['userAge']
+                            .значение;
+                    пусть user = JSON.stringify({
+                        Имя пользователя: Имя пользователя,
+                        Способ использования: Способ использования,
+                    });
+                    пусть запрос = новый XMLHttpRequest();
+                    запрос.открыть('POST', '/user', true);
+                    запрос.setRequestHeader(
+                        'Content-Type',
+                        "приложение / json"
+                    );
+                    запрос.addEventListener(
+                        "загрузить",
+                        функция () {
+                            let receivedUser = JSON.parse(
+                                request.response
+                            );
+                            console.log(
+                                receivedUser.userName,
+                                '-',
+                                receivedUser.userAge
+                            );
+                        }
+                    );
+                    request.send(user);
+                });
+        </script>
+    </body>
+    <html></html>
+</html>
